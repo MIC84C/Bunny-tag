@@ -3,6 +3,10 @@ const config = {
     width: 800,
     height: 450,
     backgroundColor: '#3a7d44',
+    scale: {
+        mode: Phaser.Scale.FIT,
+        autoCenter: Phaser.Scale.CENTER_BOTH
+    },
     scene: {
         preload: preload,
         create: create,
