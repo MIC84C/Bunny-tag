@@ -31,7 +31,10 @@ function create() {
     rabbit = this.add.circle(50, 225, 16, 0xffffff);
 
     // Shark
-    shark = this.add.circle(750, 225, 20, 0x0000ff);
+    shark = this.add.graphics();
+    shark.x = 750;
+    shark.y = 225;
+    drawShark(shark);
 
     // Tap to move rabbit
     this.input.on('pointerdown', function(pointer) {
@@ -65,6 +68,22 @@ function create() {
             }
         }
     });
+}
+
+function drawShark(g) {
+    g.clear();
+    // Body
+    g.fillStyle(0x4444ff, 1);
+    g.fillEllipse(0, 0, 50, 25);
+    // Fin
+    g.fillTriangle(0, -12, 10, -28, 20, -12);
+    // Tail
+    g.fillTriangle(-25, 0, -40, -15, -40, 15);
+    // Eye
+    g.fillStyle(0xffffff, 1);
+    g.fillCircle(14, -3, 4);
+    g.fillStyle(0x000000, 1);
+    g.fillCircle(15, -3, 2);
 }
 
 function update() {
@@ -103,6 +122,8 @@ function moveShark() {
         shark.x += (dx / dist) * speed;
         shark.y += (dy / dist) * speed;
     }
+    // Face the rabbit
+    shark.rotation = Math.atan2(dy, dx);
 }
 
 function checkCollisions() {
