@@ -18,9 +18,15 @@ let carrotCollected = false;
 let gameStarted = false;
 let countdownText;
 
-function preload() {}
+function preload() {
+    this.load.audio('music', 'music.mp3');
+}
 
 function create() {
+    // Start music
+    const music = this.sound.add('music', { loop: true, volume: 0.5 });
+    music.play();
+
     // Box (safe zone)
     box = this.add.rectangle(400, 225, 60, 60, 0x8B4513).setStrokeStyle(3, 0xffffff);
 
@@ -76,14 +82,14 @@ function drawShark(g) {
     g.fillStyle(0x4444ff, 1);
     g.fillEllipse(0, 0, 50, 25);
     // Fin
-    g.fillTriangle(0, -12, 10, -28, 20, -12);
+    g.fillTriangle(-5, -12, 5, -28, 15, -12);
     // Tail
-    g.fillTriangle(-25, 0, -40, -15, -40, 15);
+    g.fillTriangle(25, 0, 40, -15, 40, 15);
     // Eye
     g.fillStyle(0xffffff, 1);
-    g.fillCircle(14, -3, 4);
+    g.fillCircle(-14, -3, 4);
     g.fillStyle(0x000000, 1);
-    g.fillCircle(15, -3, 2);
+    g.fillCircle(-15, -3, 2);
 }
 
 function update() {
@@ -122,7 +128,6 @@ function moveShark() {
         shark.x += (dx / dist) * speed;
         shark.y += (dy / dist) * speed;
     }
-    // Face the rabbit
     shark.rotation = Math.atan2(dy, dx);
 }
 
