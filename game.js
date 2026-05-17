@@ -17,6 +17,7 @@ let rabbitTarget = null;
 let carrotCollected = false;
 let gameStarted = false;
 let countdownText;
+let sharkSpeed = parseInt(localStorage.getItem('sharkSpeed')) || 1;
 
 function preload() {
     this.load.audio('music', 'music.mp3');
@@ -118,7 +119,7 @@ function moveRabbit() {
 }
 
 function moveShark() {
-    const speed = 1;
+    const speed = sharkSpeed;
 
     const dx = rabbit.x - shark.x;
     const dy = rabbit.y - shark.y;
@@ -128,7 +129,7 @@ function moveShark() {
         shark.x += (dx / dist) * speed;
         shark.y += (dy / dist) * speed;
     }
-    shark.rotation = Math.atan2(dy, dx);
+    shark.rotation = Math.atan2(dy, dx) + Math.PI;
 }
 
 function checkCollisions() {
@@ -147,6 +148,8 @@ function checkCollisions() {
         rabbit.setFillStyle(0xff0000);
         gameStarted = false;
         if (!document.getElementById('loseText')) {
+            sharkSpeed = 1;
+            localStorage.setItem('sharkSpeed', 1);
             const msg = document.createElement('div');
             msg.id = 'loseText';
             msg.innerHTML = "Oh no, Ame ate Levi<br><br><button onclick='location.reload()' style='font-size:32px;padding:10px 30px;cursor:pointer;border:none;border-radius:10px;background:white;color:red;font-weight:bold;'>Play Again</button>";
@@ -162,6 +165,8 @@ function checkCollisions() {
             rabbit.setFillStyle(0xffff00);
             gameStarted = false;
             if (!document.getElementById('winText')) {
+                sharkSpeed += 1;
+                localStorage.setItem('sharkSpeed', sharkSpeed);
                 const msg = document.createElement('div');
                 msg.id = 'winText';
                 msg.innerHTML = "Winner winner Levi's dinner<br><br><button onclick='location.reload()' style='font-size:32px;padding:10px 30px;cursor:pointer;border:none;border-radius:10px;background:white;color:green;font-weight:bold;'>Play Again</button>";
