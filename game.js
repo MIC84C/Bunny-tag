@@ -19,7 +19,7 @@ let gameStarted = false;
 let countdownText;
 let scoreText;
 let speedText;
-let sharkSpeed = parseInt(localStorage.getItem('sharkSpeed')) || 1;
+let sharkSpeed = parseFloat(localStorage.getItem('sharkSpeed')) || 1;
 let score = parseInt(localStorage.getItem('score')) || 0;
 
 function preload() {
