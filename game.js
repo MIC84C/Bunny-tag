@@ -17,7 +17,10 @@ let rabbitTarget = null;
 let carrotCollected = false;
 let gameStarted = false;
 let countdownText;
+let scoreText;
+let speedText;
 let sharkSpeed = parseInt(localStorage.getItem('sharkSpeed')) || 1;
+let score = parseInt(localStorage.getItem('score')) || 0;
 
 function preload() {
     this.load.audio('music', 'music.mp3');
@@ -31,10 +34,10 @@ function create() {
     // Box (safe zone)
     box = this.add.rectangle(400, 225, 60, 60, 0x8B4513).setStrokeStyle(3, 0xffffff);
 
-    // Carrot
+    // Carrot - random position
     carrot = this.add.graphics();
-    carrot.x = 200;
-    carrot.y = 300;
+    carrot.x = Phaser.Math.Between(100, 700);
+    carrot.y = Phaser.Math.Between(60, 390);
     drawCarrot(carrot);
 
     // Rabbit
@@ -45,6 +48,20 @@ function create() {
     shark.x = 750;
     shark.y = 225;
     drawShark(shark);
+
+    // Score display
+    scoreText = this.add.text(10, 10, 'Score: ' + score, {
+        fontSize: '24px',
+        color: '#ffffff',
+        fontStyle: 'bold'
+    });
+
+    // Shark speed display
+    speedText = this.add.text(10, 40, 'Shark Speed: ' + sharkSpeed, {
+        fontSize: '24px',
+        color: '#ff4444',
+        fontStyle: 'bold'
+    });
 
     // Tap to move rabbit
     this.input.on('pointerdown', function(pointer) {
@@ -147,6 +164,7 @@ function moveShark() {
         shark.y += (dy / dist) * speed;
     }
     shark.rotation = Math.atan2(dy, dx) + Math.PI;
+    if (speedText) speedText.setText('Shark Speed: ' + sharkSpeed);
 }
 
 function checkCollisions() {
@@ -167,6 +185,8 @@ function checkCollisions() {
         if (!document.getElementById('loseText')) {
             sharkSpeed = 1;
             localStorage.setItem('sharkSpeed', 1);
+            score = 0;
+            localStorage.setItem('score', 0);
             const msg = document.createElement('div');
             msg.id = 'loseText';
             msg.innerHTML = "Oh no, Ame ate Levi<br><br><button onclick='location.reload()' style='font-size:32px;padding:10px 30px;cursor:pointer;border:none;border-radius:10px;background:white;color:red;font-weight:bold;'>Play Again</button>";
@@ -184,6 +204,8 @@ function checkCollisions() {
             if (!document.getElementById('winText')) {
                 sharkSpeed += 0.5;
                 localStorage.setItem('sharkSpeed', sharkSpeed);
+                score += 1;
+                localStorage.setItem('score', score);
                 const msg = document.createElement('div');
                 msg.id = 'winText';
                 msg.innerHTML = "Winner winner Levi's dinner<br><br><button onclick='location.reload()' style='font-size:32px;padding:10px 30px;cursor:pointer;border:none;border-radius:10px;background:white;color:green;font-weight:bold;'>Play Again</button>";
