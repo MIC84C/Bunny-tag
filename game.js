@@ -32,7 +32,10 @@ function create() {
     box = this.add.rectangle(400, 225, 60, 60, 0x8B4513).setStrokeStyle(3, 0xffffff);
 
     // Carrot
-    carrot = this.add.circle(200, 300, 12, 0xFF6600);
+    carrot = this.add.graphics();
+    carrot.x = 200;
+    carrot.y = 300;
+    drawCarrot(carrot);
 
     // Rabbit
     rabbit = this.add.circle(50, 225, 16, 0xffffff);
@@ -75,6 +78,20 @@ function create() {
             }
         }
     });
+}
+
+function drawCarrot(g) {
+    g.clear();
+    // Carrot body
+    g.fillStyle(0xFF6600, 1);
+    g.fillTriangle(0, 15, -8, -10, 8, -10);
+    // Left leaf
+    g.fillStyle(0x228B22, 1);
+    g.fillTriangle(-2, -10, -14, -25, 2, -16);
+    // Middle leaf
+    g.fillTriangle(0, -12, -4, -28, 4, -28);
+    // Right leaf
+    g.fillTriangle(2, -10, 14, -25, -2, -16);
 }
 
 function drawShark(g) {
@@ -134,10 +151,10 @@ function moveShark() {
 
 function checkCollisions() {
     // Rabbit eats carrot
-    if (!carrotCollected && carrot.visible) {
+    if (!carrotCollected && carrot.alpha > 0) {
         const d = Phaser.Math.Distance.Between(rabbit.x, rabbit.y, carrot.x, carrot.y);
         if (d < 20) {
-            carrot.setVisible(false);
+            carrot.setAlpha(0);
             carrotCollected = true;
         }
     }
@@ -165,7 +182,7 @@ function checkCollisions() {
             rabbit.setFillStyle(0xffff00);
             gameStarted = false;
             if (!document.getElementById('winText')) {
-                sharkSpeed += 1;
+                sharkSpeed += 0.5;
                 localStorage.setItem('sharkSpeed', sharkSpeed);
                 const msg = document.createElement('div');
                 msg.id = 'winText';
