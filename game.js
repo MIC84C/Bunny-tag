@@ -2,7 +2,7 @@ const config = {
     type: Phaser.AUTO,
     width: 800,
     height: 450,
-    backgroundColor: '#87CEEB',
+    backgroundColor: '#1a8fd1',
     scale: {
         mode: Phaser.Scale.FIT,
         autoCenter: Phaser.Scale.CENTER_BOTH
@@ -54,21 +54,21 @@ function create() {
     drawShark(shark);
 
     // Score display
-    scoreText = this.add.text(10, 10, 'Score: ' + score, {
-        fontSize: '20px',
+    scoreText = this.add.text(10, 30, 'Score: ' + score, {
+        fontSize: '22px',
         color: '#ffffff',
         fontStyle: 'bold',
         stroke: '#000000',
-        strokeThickness: 4
+        strokeThickness: 5
     }).setDepth(1);
 
     // Shark speed display
-    speedText = this.add.text(10, 35, 'Shark Speed: ' + sharkSpeed, {
-        fontSize: '20px',
-        color: '#ff4444',
+    speedText = this.add.text(10, 58, 'Shark Speed: ' + sharkSpeed, {
+        fontSize: '22px',
+        color: '#ffff00',
         fontStyle: 'bold',
         stroke: '#000000',
-        strokeThickness: 4
+        strokeThickness: 5
     }).setDepth(1);
 
     // Tap to move rabbit
