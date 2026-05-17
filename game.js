@@ -45,7 +45,10 @@ function create() {
     drawCarrot(carrot);
 
     // Rabbit
-    rabbit = this.add.circle(50, 225, 16, 0xffffff);
+    rabbit = this.add.graphics();
+    rabbit.x = 50;
+    rabbit.y = 225;
+    drawRabbit(rabbit);
 
     // Shark
     shark = this.add.graphics();
@@ -54,7 +57,7 @@ function create() {
     drawShark(shark);
 
     // Score display
-    scoreText = this.add.text(10, 30, 'Score: ' + score, {
+    scoreText = this.add.text(10, 70, 'Score: ' + score, {
         fontSize: '22px',
         color: '#ffffff',
         fontStyle: 'bold',
@@ -63,7 +66,7 @@ function create() {
     }).setDepth(1);
 
     // Shark speed display
-    speedText = this.add.text(10, 58, 'Shark Speed: ' + sharkSpeed, {
+    speedText = this.add.text(10, 100, 'Shark Speed: ' + sharkSpeed, {
         fontSize: '22px',
         color: '#ffff00',
         fontStyle: 'bold',
@@ -103,6 +106,30 @@ function create() {
             }
         }
     });
+}
+
+function drawRabbit(g) {
+    g.clear();
+    // Head
+    g.fillStyle(0xffffff, 1);
+    g.fillCircle(0, 0, 16);
+    // Left ear
+    g.fillStyle(0xffffff, 1);
+    g.fillEllipse(-8, -22, 8, 18);
+    // Right ear
+    g.fillEllipse(8, -22, 8, 18);
+    // Inner left ear
+    g.fillStyle(0xffb6c1, 1);
+    g.fillEllipse(-8, -22, 4, 12);
+    // Inner right ear
+    g.fillEllipse(8, -22, 4, 12);
+    // Eyes
+    g.fillStyle(0x000000, 1);
+    g.fillCircle(-6, -4, 3);
+    g.fillCircle(6, -4, 3);
+    // Nose
+    g.fillStyle(0xffb6c1, 1);
+    g.fillCircle(0, 3, 2);
 }
 
 function drawCarrot(g) {
@@ -188,7 +215,7 @@ function checkCollisions() {
     // Shark tags rabbit
     const sharkDist = Phaser.Math.Distance.Between(rabbit.x, rabbit.y, shark.x, shark.y);
     if (sharkDist < 24) {
-        rabbit.setFillStyle(0xff0000);
+        rabbit.setAlpha(0.5);
         gameStarted = false;
         if (!document.getElementById('loseText')) {
             sharkSpeed = 1;
@@ -207,7 +234,7 @@ function checkCollisions() {
     if (carrotCollected) {
         const boxDist = Phaser.Math.Distance.Between(rabbit.x, rabbit.y, box.x, box.y);
         if (boxDist < 30) {
-            rabbit.setFillStyle(0xffff00);
+            rabbit.setAlpha(0.7);
             gameStarted = false;
             if (!document.getElementById('winText')) {
                 sharkSpeed += 0.5;
