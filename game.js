@@ -110,35 +110,63 @@ function create() {
 
 function drawRabbit(g) {
     g.clear();
+
     // Left ear
-    g.fillStyle(0xffffff, 1);
-    g.fillEllipse(-8, -28, 10, 22);
+    g.fillStyle(0xddaa44, 1);
+    g.fillRect(-14, -44, 10, 22);
+    // Left ear inner
+    g.fillStyle(0xffdd88, 1);
+    g.fillRect(-12, -42, 6, 16);
+
     // Right ear
-    g.fillEllipse(8, -28, 10, 22);
-    // Inner left ear
-    g.fillStyle(0xffb6c1, 1);
-    g.fillEllipse(-8, -28, 5, 14);
-    // Inner right ear
-    g.fillEllipse(8, -28, 5, 14);
+    g.fillStyle(0xddaa44, 1);
+    g.fillRect(4, -44, 10, 22);
+    // Right ear inner
+    g.fillStyle(0xffdd88, 1);
+    g.fillRect(6, -42, 6, 16);
+
     // Head
+    g.fillStyle(0xffdd88, 1);
+    g.fillCircle(0, 0, 22);
+
+    // Cheeks
+    g.fillStyle(0xffeebb, 1);
+    g.fillEllipse(-8, 6, 18, 14);
+    g.fillEllipse(8, 6, 18, 14);
+
+    // Left eye outer
+    g.fillStyle(0x000000, 1);
+    g.fillCircle(-8, -6, 7);
+    // Left eye white ring
     g.fillStyle(0xffffff, 1);
-    g.fillCircle(0, 0, 18);
-    // Eyes
-    g.fillStyle(0x222222, 1);
-    g.fillCircle(-6, -5, 4);
-    g.fillCircle(6, -5, 4);
-    // Eye shine
+    g.fillCircle(-8, -6, 5);
+    // Left eye pupil
+    g.fillStyle(0x000000, 1);
+    g.fillCircle(-8, -6, 3);
+    // Left eye shine
     g.fillStyle(0xffffff, 1);
-    g.fillCircle(-5, -7, 1.5);
-    g.fillCircle(7, -7, 1.5);
+    g.fillCircle(-6, -8, 1.5);
+
+    // Right eye outer
+    g.fillStyle(0x000000, 1);
+    g.fillCircle(8, -6, 7);
+    // Right eye white ring
+    g.fillStyle(0xffffff, 1);
+    g.fillCircle(8, -6, 5);
+    // Right eye pupil
+    g.fillStyle(0x000000, 1);
+    g.fillCircle(8, -6, 3);
+    // Right eye shine
+    g.fillStyle(0xffffff, 1);
+    g.fillCircle(10, -8, 1.5);
+
     // Nose
+    g.fillStyle(0x000000, 1);
+    g.fillTriangle(0, 4, -3, 8, 3, 8);
+
+    // Tongue
     g.fillStyle(0xff9999, 1);
-    g.fillEllipse(0, 4, 6, 4);
-    // Mouth left
-    g.fillStyle(0xddaaaa, 1);
-    g.fillEllipse(-4, 9, 5, 3);
-    // Mouth right
-    g.fillEllipse(4, 9, 5, 3);
+    g.fillEllipse(0, 14, 10, 8);
 }
 
 function drawCarrot(g) {
